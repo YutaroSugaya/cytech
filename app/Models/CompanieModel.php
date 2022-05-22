@@ -29,8 +29,10 @@ class CompanieModel extends Model
             'street_address',
             'representative_name'
         ]);
-        $query->get();
 
-        return $query;
+        $obj = $query->from('companies')
+                     ->get();
+                     
+        return $obj;
     }
 }

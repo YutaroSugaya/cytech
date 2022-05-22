@@ -14,24 +14,12 @@ class ProductModel extends Model
 
     //テーブル名
     protected $table = 'products';
-    //プライマリーキー
-    // public $productsId = 'products.id';
-
-    // public function getCompanies() {
-    //     $query = DB::table($this->table);
-    //     $query->select([
-    //         $this->productsId,
-    //         'company_id'
-    //     ]);
-    //     $query->where($this->productsId,);
-
-    // }
-
 
 
     /**
      *　一覧画面のデータを取得する
-     * @return view
+     * @param 
+     * @return $obj
      * */
 
     public function getList() {
@@ -47,12 +35,10 @@ class ProductModel extends Model
             'image_path',
             'company_name'
         ]);
-
-        $obj = $query->from('products')->join('companies as com','company_id','com.id')->get();
-        // $query->leftjoin('companies','companies.id','products.companie_id')->get();
-        // $companies = DB::table('products')->join('companies','companies.id','=','products.companie_id')->get();
-        // $test = $query;
-        $obj = $query->get();
+        //productsテーブルのIDとcpmpaniesテーブルのIDを紐付けする
+        $obj = $query->from('products')
+                     ->leftjoin('companies as com','company_id','com.id')
+                     ->get();
         return $obj;
     }
 

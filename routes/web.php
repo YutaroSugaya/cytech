@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShowListController;
+use App\Http\Controllers\CrudController;
+use App\Models\CrudModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,10 +37,12 @@ Route::get('/home', [ShowListController::class, 'showList']);
 
 
 // //登録画面
-// Route::get('/blog/create', 'BlogController@showCreate')->name('create');
+Route::get('/showCreate', [ShowListController::class, 'showCreate']);
 
 // //登録
 // Route::post('/blog/store', 'BlogController@exeStore')->name('store');
+Route::post('/showCreate/store', [CrudController::class, 'exeStore'])->name('exeStore');
+
 
 // //詳細画面
 // Route::get('/blog/{id}', 'BlogController@showDetail')->name('show');

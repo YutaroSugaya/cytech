@@ -22,14 +22,21 @@ class ShowListController extends Controller {
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return view
      */
     public function showList() {
         $products = $this->ProductModel->getList();
-        $companies = $this->CompanieModel->companiesGet();
-
-        foreach($products as $product) {
-            return view('showList', compact('product'));
-        }
+            return view('showList', ['product' => $products]);
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return view
+     */
+    public function showCreate() {
+        $companies = $this->CompanieModel->companiesGet();
+            return view('showCreate', ['companies' => $companies]);
+    }
+
 }

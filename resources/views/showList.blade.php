@@ -19,7 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link active" href="#">商品一覧画面 <span class="sr-only"></span></a>
-                    <a class="nav-item nav-link" href="#">新規登録</a>
+                    <a class="nav-item nav-link" href="/showCreate">新規登録</a>
                 </div>
             </div>
         </nav>
@@ -40,6 +40,7 @@
                         <th>詳細画面</th>
                         <th>データ削除</th>
                     </tr>
+                    @foreach($product as $product)
                     <tr>
                         <td>{{ $product->id }}</td>
                         <td><img src="{{ Storage::url($product->image_path) }}" width="30px"></td>
@@ -47,10 +48,11 @@
                         <td>{{ $product->price }}</td>
                         <td>{{ $product->stock }}</td>
                         <td>{{ $product->company_name }}</td>
-                        {{-- <td><button type="button" class="btn btn-success"
+                        <td><button type="button" class="btn btn-success"
                                 onclick="location.href='/blog/{{ $product->id }}'">詳細表示</button></td>
-                        <td><button onclick="return confirm('本当に削除しますか？')" class="btn btn-danger removeList">削除</button></td> --}}
+                        <td><button onclick="return confirm('本当に削除しますか？')" class="btn btn-danger removeList">削除</button></td>
                     </tr>
+                    @endforeach
                 </table>
             </div>
         </div>

@@ -15,10 +15,20 @@ class ProductModel extends Model
     //テーブル名
     protected $table = 'products';
 
+    //可変項目
+    protected $fillable = [
+        'company_id',
+        'productName',
+        'price',
+        'stock',
+        'comment',
+        'image_path'
+    ];
+
 
     /**
      *　一覧画面のデータを取得する
-     * @param 
+     * @param
      * @return $obj
      * */
 

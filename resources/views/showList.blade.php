@@ -49,7 +49,7 @@
                         <td>{{ $product->stock }}</td>
                         <td>{{ $product->company_name }}</td>
                         <td><button type="button" class="btn btn-success"
-                                onclick="location.href='/blog/{{ $product->id }}'">詳細表示</button></td>
+                                onclick="location.href='/showUpdate/{{ $product->id }}'">詳細表示</button></td>
                         <td><button onclick="return confirm('本当に削除しますか？')" class="btn btn-danger removeList">削除</button></td>
                     </tr>
                     @endforeach

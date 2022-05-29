@@ -6,7 +6,7 @@
     <title>新規登録フォーム</title>
     <link rel="stylesheet" href="/css/app.css">
     <script src="/js/app.js" defer></script>
-    <script src="{{ asset('js/hoge.js') }}"></script>
+    <script src="{{ asset('js/all.js') }}"></script>
 
 </head>
 
@@ -23,11 +23,11 @@
                     </label>
                     <input id="productName" name="productName" class="form-control" value="{{ old('productName') }}"
                         type="text">
-                    @if ($errors->has('productName'))
+                    {{-- @if ($errors->has('productName'))
                         <div class="text-danger">
                             {{ $errors->first('productName') }}
-                        </div>
-                    @endif
+                        </div> jsで書く
+                    @endif --}}
                 </div>
 
                 <div class="form-group">
@@ -60,10 +60,8 @@
                     <select  id="id" name="company_name" >
                         @foreach ($companies as $company)
                         <option value="{{ $company->id }}" @if(old('id') == $company->id) selected @endif>{{ $company->company_name }}</option>
-                        {{-- {{$company->company_name }} --}}
                         @endforeach
                     </select>
-
                     @if ($errors->has('company'))
                         <div class="text-danger">
                             {{ $errors->first('company') }}
@@ -72,18 +70,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="content">
+                    <label for="comment">
                         コメント
                     </label>
-                    <textarea id="content" name="content" class="form-control" rows="4">{{ old('content') }}</textarea>
-                    @if ($errors->has('content'))
+                    <textarea id="comment" name="comment" class="form-control" rows="4">{{ old('comment') }}</textarea>
+                    @if ($errors->has('comment'))
                         <div class="text-danger">
-                            {{ $errors->first('content') }}
+                            {{ $errors->first('comment') }}
                         </div>
                     @endif
                 </div>
 
-                <input id="image" type="file" name="image">
+                <input id="image_path" type="file" name="image_path">
 
                 <div class="mt-5">
                     <a class="btn btn-secondary" href="{{ '/home' }}">

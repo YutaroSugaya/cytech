@@ -14,20 +14,28 @@ class CrudModel extends Model
 
     /**
      *　新規画面のデータを取得する
-     * @param
-     * @return $request
+     * @param $request
+     * @return $model
      * */
 
-    public function create(Request $request) {
+    public function create($request) {
 
        //データを受け取る
-       $inputs = $request->all();
+       $model = $request->all();
+
        \DB::beginTransaction();
        //登録
-       Blog::create($inputs);
+       ProductModel::create([
+           'company_id'  => $model['company_name'],
+           'productName' => $model['productName'],
+           'price'       => $model['price'],
+           'stock'       => $model['stock'],
+           'comment'     => $model['comment'],
+           'image_path'  => $model['image_path'],
+        ]);
        \DB::commit();
        \Session::flash('err_msg', '商品を登録しました');
 
-        return $request;
+        return $model;
     }
 }

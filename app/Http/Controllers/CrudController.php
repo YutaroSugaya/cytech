@@ -51,11 +51,8 @@ class CrudController extends Controller {
      */
     //BlogRequestを$requestという変数に入れる→$requestでデータを受け取れるようになる
     public function exeStore(Request $request) {
-        $model = $request->all();
-        // $result = $this->CrudModel->get();
-
-
-        return redirect(route('/home'));
+        $this->CrudModel->create($request);
+        return redirect(route('showList'));
     }
 
 
@@ -65,15 +62,15 @@ class CrudController extends Controller {
      * @return view
      */
 
-    public function showEdit($id)
-    {
-        $blog = Blog::find($id);
-        if (is_null($blog)) {
-            \Session::flash('err_msg', 'データがありません。');
-            return redirect(route('blogs'));
-        }
-        return view('blog.edit', ['blog' => $blog]);
-    }
+    // public function showUpdate($id)
+    // {
+    //     $productId = ProductModel::find($id);
+    //     if (is_null($productId)) {
+    //         \Session::flash('err_msg', 'データがありません。');
+    //         return redirect(route('showList'));
+    //     }
+    //     return view('showUpdate', ['productId' => $productId]);
+    // }
 
     /**
      *　更新をする
@@ -86,6 +83,7 @@ class CrudController extends Controller {
         $inputs = $request->all();
 
         \DB::beginTransaction();
+
         try {
             //編集内容登録
             $blog = Blog::find($inputs['id']);
@@ -94,7 +92,7 @@ class CrudController extends Controller {
                 'price' => $inputs['price'],
                 'stock' => $inputs['stock'],
                 'company_name' => $inputs['company_name'],
-                'content' => $inputs['content'],
+                // 'content' => $inputs['content'],
                 'image' => $inputs['image'],
             ]);
             $blog->save();

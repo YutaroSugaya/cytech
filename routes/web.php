@@ -27,7 +27,7 @@ Auth::routes();
 
 //ホーム画面を表示
 
-Route::get('/home', [ShowListController::class, 'showList']);
+Route::get('/home', [ShowListController::class, 'showList'])->name('showList');
 
 //ブログ画面一覧
 // Route::get('/blog/blogs', 'BlogController@showList')->name('blogs');
@@ -36,22 +36,21 @@ Route::get('/home', [ShowListController::class, 'showList']);
 // Route::post('/blog/list', 'BlogController@fetchList')->name('list');
 
 
-// //登録画面
+//新規登録画面
 Route::get('/showCreate', [ShowListController::class, 'showCreate']);
-
-// //登録
-// Route::post('/blog/store', 'BlogController@exeStore')->name('store');
+//新規登録処理
 Route::post('/showCreate/store', [CrudController::class, 'exeStore'])->name('exeStore');
 
+//詳細編集画面
+Route::get('/showUpdate/{id}', [ShowListController::class, 'showUpdate'])->name('showUpdate');
 
-// //詳細画面
-// Route::get('/blog/{id}', 'BlogController@showDetail')->name('show');
+// Route::post('/showUpdate/update', 'BlogController@exeUpdate')->name('update');
+Route::post('/showUpdate/update', [CrudController::class, 'exeUpdate'])->name('exeUpdate');
 
 // //編集画面を表示
 // Route::get('/blog/edit/{id}', 'BlogController@showEdit')->name('edit');
 
 // //商品の更新
-// Route::post('/blog/update', 'BlogController@exeUpdate')->name('update');
 
 // //削除
 // Route::post('/blog/delete/{ID}', 'BlogController@exeDelete')->name('delete');

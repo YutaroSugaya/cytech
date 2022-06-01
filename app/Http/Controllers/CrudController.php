@@ -86,24 +86,24 @@ class CrudController extends Controller {
 
         try {
             //編集内容登録
-            $blog = Blog::find($inputs['id']);
-            $blog->fill([
+            $products = ProductModel::find($inputs['id']);
+            $products->fill([
                 'productName' => $inputs['productName'],
                 'price' => $inputs['price'],
                 'stock' => $inputs['stock'],
                 'company_name' => $inputs['company_name'],
-                // 'content' => $inputs['content'],
-                'image' => $inputs['image'],
+                'comment' => $inputs['comment'],
+                'image_path' => $inputs['image'],
             ]);
-            $blog->save();
+            $products->save();
             \DB::commit();
         } catch (\Throwable $e) {
             \DB::rollback();
             abort(500);
         }
 
-        \Session::flash('err_msg', 'ブログを更新しました');
-        return redirect(route('blogs'));
+        \Session::flash('err_msg', '商品を更新しました');
+        return redirect(route('showList'));
     }
 
     /**

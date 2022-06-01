@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>編集画面</title>
     <link rel="stylesheet" href="/css/app.css">
-    <script src="{{ asset('/js/all.js') }}"></script>
+    {{-- <script src="{{ asset('/js/all.js') }}"></script> --}}
 </head>
 
 <body>
@@ -16,7 +16,7 @@
             <form method="POST" action="{{ route('exeUpdate') }}" onSubmit="return checkSubmit()"
                 enctype="multipart/form-data">
                 @csrf
-                
+
 
                 <input type="hidden" name="id" value="{{ $product->id }}">
 
@@ -90,18 +90,18 @@
                 </div>
 
                 <div class="form-group text-secondary">
-                    <label for="image">
+                    <label for="image_path">
                         商品画像
                     </label>
                     <br>
-                    <img src="{{ asset('/storage/' . $product->image) }}" class="img-fluid"
-                        alt="{{ $product->image }}" width="200" height="200">
+                    <img src="{{ asset('/storage/' . $product->image_path) }}" class="img-fluid"
+                        alt="{{ $product->image_path }}" width="200" height="200">
                     <br>
                     <br>
-                    <input type="file" class="form-control-file" name='image' id="image">
-                    @if ($errors->has('image'))
+                    <input type="file" class="form-control-file" name='image_path' id="image_path">
+                    @if ($errors->has('image_path'))
                         <div class="text-danger">
-                            {{ $errors->first('image') }}
+                            {{ $errors->first('image_path') }}
                         </div>
                     @endif
                 </div>
@@ -110,7 +110,7 @@
                         戻る
                     </button>
 
-                    <button type="submit" class="btn btn-primary" @change="checkSubmit()" >
+                    <button type="submit" class="btn btn-primary">
                         更新する
                     </button>
                 </div>

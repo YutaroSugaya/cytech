@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>一覧画面</title>
     <link rel="stylesheet" href="/css/app.css">
-    <script src="/js/app.js" defer></script>
+    {{-- <script src="/js/app.js" defer></script> --}}
 </head>
 
 <body>

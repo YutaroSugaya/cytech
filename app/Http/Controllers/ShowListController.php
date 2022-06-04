@@ -18,6 +18,7 @@ class ShowListController extends Controller {
         $this->CompanieModel = new CompanieModel();
         $this->ProductModel = new ProductModel();
     }
+    
 
     /**
      * Show the application dashboard.
@@ -25,8 +26,26 @@ class ShowListController extends Controller {
      * @return view
      */
     public function showList() {
-        $products = $this->ProductModel->getList();
-            return view('showList', ['product' => $products]);
+        $product = $this->ProductModel->getList();
+            return view('showList', ['product' => $product]);
+    }
+    /**
+     * 記事の検索
+     *
+     * @return view */
+
+    public function search(Request $request)
+    {
+        $keyword = $request->keyword;
+        if (!empty($keyword)) {
+            if ($request->ajax()) {
+                $response = ProductModel::orderBy('id', 'asc')
+                    ->where('productName', 'LIKE', "%{$keyword}%")
+                    ->orWhere('company', 'LIKE', "%{$keyword}%")
+                    ->paginate(10);
+                return view('showList', compact('response'))->render();
+            }
+        }
     }
 
     /**

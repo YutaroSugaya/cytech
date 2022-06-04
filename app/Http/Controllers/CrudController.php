@@ -57,22 +57,6 @@ class CrudController extends Controller {
 
 
     /**
-     *　編集フォームを表示する
-     *　@param int $id
-     * @return view
-     */
-
-    // public function showUpdate($id)
-    // {
-    //     $productId = ProductModel::find($id);
-    //     if (is_null($productId)) {
-    //         \Session::flash('err_msg', 'データがありません。');
-    //         return redirect(route('showList'));
-    //     }
-    //     return view('showUpdate', ['productId' => $productId]);
-    // }
-
-    /**
      *　更新をする
      * @return view
      */
@@ -93,7 +77,7 @@ class CrudController extends Controller {
                 'stock' => $inputs['stock'],
                 'company_name' => $inputs['company_name'],
                 'comment' => $inputs['comment'],
-                'image_path' => $inputs['image'],
+                'image_path' => $inputs['image_path'],
             ]);
             $products->save();
             \DB::commit();

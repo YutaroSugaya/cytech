@@ -5,12 +5,13 @@ namespace App\Models;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;// 追加
 use DB;
 
 class ProductModel extends Model
 {
     use HasFactory;
-    // use Sortable; //ソート順表示
+    use Sortable; //ソート順表示
 
     //テーブル名
     protected $table = 'products';
@@ -25,6 +26,15 @@ class ProductModel extends Model
         'image_path'
     ];
 
+    //ソートに使うカラムを指定
+    public $sortable = [
+        'id',
+        'productName',
+        'price',
+        'stock',
+        'company_name',
+        'company_id'
+    ];
 
     /**
      *　一覧画面のデータを取得する

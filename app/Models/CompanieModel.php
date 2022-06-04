@@ -5,20 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Kyslik\ColumnSortable\Sortable;// 追加
+
 class CompanieModel extends Model
 {
     use HasFactory;
+    use Sortable; //ソート順表示
 
     //テーブル名
     protected $table = 'companies';
 
-    //可変項目 データベースに保存していいものを入れる
-    // protected $fillable =
-    // [
-    //     'company_name',
-    //     'street_address',
-    //     'representative_name',
-    // ];
+    public $sortable = [
+        'company_name'
+    ];
 
     public function companiesGet() {
 
@@ -32,7 +31,6 @@ class CompanieModel extends Model
 
         $obj = $query->from('companies')
                      ->get();
-                     
         return $obj;
     }
 }

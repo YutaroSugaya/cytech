@@ -64,7 +64,7 @@ Route::post('/showUpdate/update', [CrudController::class, 'exeUpdate'])->name('e
 
 
 // // 記事の検索をする
-// Route::post('/blog/search/{keyword}', 'BlogController@search')->name('search');
+Route::post('/search/{keyword}', 'ShowListController@search')->name('search');
 
 // // 記事の検索をする
 // Route::post('/blog/search/{number}', 'BlogController@search')->name('number1');

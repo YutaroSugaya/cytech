@@ -115,5 +115,5 @@ class CrudController extends Controller {
         \Session::flash('err_msg', '削除しました。');
         return view('blog.list_child');
     }
-
+    //test
 }

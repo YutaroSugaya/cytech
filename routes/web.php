@@ -16,9 +16,9 @@ use App\Models\CrudModel;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
@@ -28,6 +28,7 @@ Auth::routes();
 //ホーム画面を表示
 
 Route::get('/home', [ShowListController::class, 'showList'])->name('showList');
+Route::get('/home/showGetList', [ShowListController::class, 'showGetList'])->name('showGetList');
 
 //ブログ画面一覧
 // Route::get('/blog/blogs', 'BlogController@showList')->name('blogs');
@@ -40,6 +41,8 @@ Route::get('/home', [ShowListController::class, 'showList'])->name('showList');
 Route::get('/showCreate', [ShowListController::class, 'showCreate']);
 //新規登録処理
 Route::post('/showCreate/store', [CrudController::class, 'exeStore'])->name('exeStore');
+//会社名取得する
+Route::post('/showCreate/companyGet', [ShowListController::class, 'companyGet']);
 
 //詳細編集画面
 Route::get('/showUpdate/{id}', [ShowListController::class, 'showUpdate'])->name('showUpdate');

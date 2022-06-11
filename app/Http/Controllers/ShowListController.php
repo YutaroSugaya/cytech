@@ -18,7 +18,7 @@ class ShowListController extends Controller {
         $this->CompanieModel = new CompanieModel();
         $this->ProductModel = new ProductModel();
     }
-    
+
 
     /**
      * Show the application dashboard.

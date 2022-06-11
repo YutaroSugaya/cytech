@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <title>新規登録フォーム</title>
     <link rel="stylesheet" href="/css/app.css">
-    <script src="/js/app.js" defer></script>
-    <script src="{{ asset('js/all.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="{{ asset('js/create.js') }}" defer></script>
 
 </head>
 
-<div class="row">
+<div class="row" id="create">
     <div class="table-responsive">
         <div class="col-md-8 col-md-offset-2">
             <h2>新規登録フォーム</h2>

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>一覧画面</title>
     <link rel="stylesheet" href="/css/app.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="{{ asset('js/all.js') }}" defer></script>
 </head>
 
 <body>
@@ -18,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link active" href="#">商品一覧画面 <span class="sr-only"></span></a>
-                    <a class="nav-item nav-link" href="/showCreate">新規登録</a>
+                    <a id="app" class="nav-item nav-link" href="/showCreate">新規登録</a>
                 </div>
             </div>
         </nav>

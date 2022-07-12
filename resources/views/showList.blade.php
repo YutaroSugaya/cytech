@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <title>一覧画面</title>
     <link rel="stylesheet" href="/css/app.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="{{ asset('js/all.js') }}" defer></script>
+    <script src="{{ asset('js/main.js') }}" defer></script>
 </head>
 
 <body>
@@ -20,17 +22,27 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-item nav-link active" href="#">商品一覧画面 <span class="sr-only"></span></a>
-                    <a id="app" class="nav-item nav-link" href="/showCreate">新規登録</a>
+                    <a id="" class="nav-item nav-link" href="/showCreate">新規登録</a>
+
                 </div>
             </div>
         </nav>
     </header>
     <br>
-    <div class="container">
+    <div class="container" id="main">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h2>商品一覧</h2>
+                <p><input type="text" class="form-control mr-sm-2" v-model="keyword" placeholder="商品名または会社名を入力"></p>
+                <p><input type="text" class="form-control mr-sm-2" v-model="topPrice" placeholder="上弦"
+                        style="width:100px"></p>
+                ~<p><input type="text" class="form-control mr-sm-2" v-model="underPrice" placeholder="下弦"
+                        style="width:100px"></p>
+                <p><input type="button" value="検索" class="btn btn-primary" @click="postList(keyword)"></p>
+                <p><input type="button" value="検索" class="btn btn-primary"
+                        @click="numberList(topPrice,underPrice)"></p>
                 <table class="table table-striped">
+
                     <tr>
                         <th>@sortablelink('id', '商品ID')</th>
                         <th>商品画像</th>
@@ -41,19 +53,34 @@
                         <th>詳細画面</th>
                         <th>データ削除</th>
                     </tr>
-                    @foreach($product as $product)
-                    <tr>
-                        <td>{{ $product->id }}</td>
-                        <td><img src="{{ Storage::url($product->image_path) }}" width="30px"></td>
-                        <td>{{ $product->productName }}</td>
-                        <td>{{ $product->price }}</td>
-                        <td>{{ $product->stock }}</td>
-                        <td>{{ $product->company_name }}</td>
-                        <td><button type="button" class="btn btn-success"
-                                onclick="location.href='/showUpdate/{{ $product->id }}'">詳細表示</button></td>
-                        <td><button onclick="return confirm('本当に削除しますか？')" class="btn btn-danger removeList">削除</button></td>
-                    </tr>
+
+                    @foreach ($product as $product)
+                        <tr v-if='screenFlg'>
+                            <td>{{ $product->id }}</td>
+                            <td><img src="{{ Storage::url($product->image_path) }}" width="30px"></td>
+                            <td>{{ $product->productName }}</td>
+                            <td>{{ $product->price }}</td>
+                            <td>{{ $product->stock }}</td>
+                            <td>{{ $product->company_name }}</td>
+                            <td><button type="button" class="btn btn-success"
+                                    onclick="location.href='/showUpdate/{{ $product->id }}'">詳細表示</button></td>
+                            <td><button onclick="return confirm('本当に削除しますか？')"
+                                    class="btn btn-danger removeList">削除</button>
+                            </td>
+                        </tr>
                     @endforeach
+
+                    <tr v-else v-for="item in productList">
+                        <td v-text="item.id"></td>
+                        <td v-text="item.image_path"></td>
+                        <td v-text="item.productName"></td>
+                        <td v-text="item.price"></td>
+                        <td v-text="item.stock"></td>
+                        <td v-text="item.company_name"></td>
+                        {{-- <td><img src="{{ Storage::url($product->image_path) }}" width="30px"></td> --}}
+                        <td><button type="button" class="btn btn-success" @click="detail(item.id)">詳細表示</button></td>
+                        <td><button type="button" class="btn btn-danger" @click="deleteConfirm(index)">削除</button></td>
+                    </tr>
                 </table>
             </div>
         </div>

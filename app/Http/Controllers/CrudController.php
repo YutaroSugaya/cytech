@@ -6,6 +6,8 @@ use App\Models\CompanieModel;
 use App\Models\ProductModel;
 use App\Models\CrudModel;
 use Illuminate\Http\Request;
+use DB;
+
 
 class CrudController extends Controller {
     /**
@@ -64,28 +66,23 @@ class CrudController extends Controller {
     public function exeUpdate(Request $request)
     {
         //データを受け取る
-        $inputs = $request->all();
+        //短縮記法
+        DB::transaction(function () use ($request) {
+            $products = ProductModel::find($request->id);
+            $products->fill($request->all())->save();
+        });
 
-        \DB::beginTransaction();
-
-        try {
-            //編集内容登録
-            $products = ProductModel::find($inputs['id']);
-            $products->fill([
-                'productName' => $inputs['productName'],
-                'price' => $inputs['price'],
-                'stock' => $inputs['stock'],
-                'company_name' => $inputs['company_name'],
-                'comment' => $inputs['comment'],
-                'image_path' => $inputs['image_path'],
-            ]);
-            $products->save();
-            \DB::commit();
-        } catch (\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
-
+        // 従来の記法
+        // \DB::beginTransaction();
+        // try {
+        //     //編集内容登録
+        //     $products = ProductModel::find($request->id);
+        //     $products->fill($request->all())->save();
+        //     \DB::commit();
+        // } catch (\Throwable $e) {
+        //     \DB::rollback();
+        //     abort(500);
+        // }
         \Session::flash('err_msg', '商品を更新しました');
         return redirect(route('showList'));
     }
@@ -100,19 +97,21 @@ class CrudController extends Controller {
     public function exeDelete($id)
     {
 
-        $blog = Blog::destroy($id);
+        $products = ProductModel::destroy($id);
         if (empty($id)) {
             \Session::flash('err_msg', 'データがありません。');
-            return view('blog.list_child');
+            return view('showList');
         }
 
         try {
             //データを削除
-            Blog::destroy($id);
+            ProductModel::destroy($id);
+            \DB::commit();
+            // $products->save();
         } catch (\Throwable $e) {
             abort(500);
         }
         \Session::flash('err_msg', '削除しました。');
-        return view('blog.list_child');
+        return view('showList');
     }
 }

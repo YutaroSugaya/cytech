@@ -36,16 +36,54 @@ class ProductModel extends Model
         'company_id'
     ];
 
-    /**
+     /**
      *　一覧画面のデータを取得する
+     * @param
+     * @return $obj
+     * */
+    public function getModel() {
+        return new ProductModel();
+    }
+
+    /**
+     *　一覧画面のデータを取得する　クエリビルダバージョン
+     * @param
+     * @return $obj
+     * */
+
+    // public function getList() {
+
+    //     $query = DB::table($this->table);
+    //     $query->select([
+    //         'products.id',
+    //         'company_id',
+    //         'productName',
+    //         'price',
+    //         'stock',
+    //         'comment',
+    //         'image_path',
+    //         'company_name'
+    //     ]);
+    //     //productsテーブルのIDとcpmpaniesテーブルのIDを紐付けする
+    //     // $obj = $query->sortable()->get();
+
+    //     $obj = $query->from('products')
+    //                  ->leftjoin('companies as com','company_id','com.id')
+    //                  ->get();
+    //     // $query->sortable();
+
+    //     return $obj;
+    // }
+
+     /**
+     *　一覧画面のデータを取得する eloquentバージョン
      * @param
      * @return $obj
      * */
 
     public function getList() {
 
-        $query = DB::table($this->table);
-        $query->select([
+        $query = ProductModel::select([
             'products.id',
             'company_id',
             'productName',
@@ -54,12 +92,12 @@ class ProductModel extends Model
             'comment',
             'image_path',
             'company_name'
-        ]);
-        //productsテーブルのIDとcpmpaniesテーブルのIDを紐付けする
-        $obj = $query->from('products')
-                     ->leftjoin('companies as com','company_id','com.id')
-                     ->get();
-        return $obj;
+        ])
+            ->sortable()
+            ->from('products')
+            ->leftJoin('companies as com','company_id','com.id')
+            ->get();
+        return $query;
     }
 
 }

@@ -56,7 +56,8 @@ Route::post('/showUpdate/update', [CrudController::class, 'exeUpdate'])->name('e
 // //商品の更新
 
 // //削除
-// Route::post('/blog/delete/{ID}', 'BlogController@exeDelete')->name('delete');
+Route::post('/blog/delete/{ID}', 'BlogController@exeDelete')->name('delete');
+Route::post('/showDelete/delete/{id}', [CrudController::class, 'exeDelete'])->name('exeDelete');
 
 // Auth::routes();
 
@@ -67,7 +68,8 @@ Route::post('/showUpdate/update', [CrudController::class, 'exeUpdate'])->name('e
 
 
 // // 記事の検索をする
-Route::post('/search/{keyword}', 'ShowListController@search')->name('search');
+Route::post('/search/{keyword}', [ShowListController::class, 'search'])->name('search');
+Route::post('/search2', [ShowListController::class, 'search2'])->name('search');
 
 // // 記事の検索をする
 // Route::post('/blog/search/{number}', 'BlogController@search')->name('number1');

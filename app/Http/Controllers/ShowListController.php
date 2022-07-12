@@ -6,14 +6,16 @@ use App\Models\CompanieModel;
 use App\Models\ProductModel;
 use Illuminate\Http\Request;
 
-class ShowListController extends Controller {
+class ShowListController extends Controller
+{
     /**
      * Create a new controller instance.
      *
      * @return void
      */
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
         $this->CompanieModel = new CompanieModel();
         $this->ProductModel = new ProductModel();
@@ -25,10 +27,23 @@ class ShowListController extends Controller {
      *
      * @return view
      */
-    public function showList() {
-        $product = $this->ProductModel->getList();
-            return view('showList', ['product' => $product]);
+    public function showList()
+    {
+        $product = $this->ProductModel->getModel()->getList();
+        return view('showList',['product' => $product]);
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return view
+     */
+    public function showGetList()
+    {
+        $result = $this->ProductModel->getModel()->getList();
+        return $result;
+    }
+
     /**
      * 記事の検索
      *
@@ -38,13 +53,56 @@ class ShowListController extends Controller {
     {
         $keyword = $request->keyword;
         if (!empty($keyword)) {
-            if ($request->ajax()) {
-                $response = ProductModel::orderBy('id', 'asc')
-                    ->where('productName', 'LIKE', "%{$keyword}%")
-                    ->orWhere('company', 'LIKE', "%{$keyword}%")
-                    ->paginate(10);
-                return view('showList', compact('response'))->render();
-            }
+            $response = ProductModel::select([
+                'products.id',
+                'company_id',
+                'productName',
+                'price',
+                'stock',
+                'comment',
+                'image_path',
+                'company_name'])
+                ->from('products')
+                ->leftJoin('companies as com','company_id','com.id')
+                ->where('productName', 'LIKE', "%{$keyword}%")
+                ->orWhere('company_name', 'LIKE', "%{$keyword}%")
+                ->orWhere('stock', 'LIKE', "%{$keyword}%")
+                ->get();
+            return $response;
+        } else {
+            $result = $this->ProductModel->getModel()->getList();
+            return $result;
+        }
+    }
+
+    /**
+     * 記事の検索
+     *
+     * @return view */
+
+    public function search2(Request $request)
+    {
+
+        $topPrice = intval($request->topPrice);
+        $underPrice = intval($request->underPrice);
+        if (!empty($topPrice) && !empty($underPrice)) {
+            $response = ProductModel::select([
+                'products.id',
+                'company_id',
+                'productName',
+                'price',
+                'stock',
+                'comment',
+                'image_path',
+                'company_name'])
+                ->from('products')
+                ->leftJoin('companies as com','company_id','com.id')
+                ->whereBetween('price',[$underPrice, $topPrice])
+                ->get();
+            return $response;
+        } else {
+            $result = $this->ProductModel->getModel()->getList();
+            return $result;
         }
     }
 
@@ -53,9 +111,10 @@ class ShowListController extends Controller {
      * @param
      * @return $companies
      */
-    public function showCreate() {
+    public function showCreate()
+    {
         $companies = $this->CompanieModel->companiesGet();
-            return view('showCreate', ['companies' => $companies]);
+        return view('showCreate', ['companies' => $companies]);
     }
 
     /**
@@ -63,7 +122,8 @@ class ShowListController extends Controller {
      * @param  $id
      * @return $product,$companies
      */
-    public function showUpdate($id) {
+    public function showUpdate($id)
+    {
         $products = ProductModel::find($id);
         if (is_null($products)) {
             \Session::flash('err_msg', 'データがありません。');

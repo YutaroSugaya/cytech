@@ -53,19 +53,34 @@ class CrudController extends Controller {
      */
     //BlogRequestを$requestという変数に入れる→$requestでデータを受け取れるようになる
     public function exeStore(Request $request) {
+         //バリデーションチェック
+        $this->validate($request, [
+            'productName' => 'bail|required|max:255',
+            'price'       => 'bail|required|max:9999999999|integer',
+            'stock'       => 'bail|required|max:9999999999|integer',
+            'comment'     => 'bail|required|max:1000'
+        ]);
         $this->CrudModel->create($request);
         return redirect(route('showList'));
     }
 
 
     /**
-     *　更新をする
+     *　商品データを更新をする
+     * @param $request
      * @return view
      */
 
     public function exeUpdate(Request $request)
     {
-        //データを受け取る
+        //バリデーションチェック
+        $this->validate($request,[
+            'productName' => 'bail|required|max:255',
+            'price'       => 'bail|required|max:9999999999|integer',
+            'stock'       => 'bail|required|max:9999999999|integer',
+            'comment'     => 'bail|required|max:1000'
+        ]);
+
         //短縮記法
         DB::transaction(function () use ($request) {
             $products = ProductModel::find($request->id);

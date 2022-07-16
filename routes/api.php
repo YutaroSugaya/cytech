@@ -21,7 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['middleware' => 'api'])->group(function () {
-    // Ajax:売上登録
+    // API 商品の在庫数を減らす処理
     Route::post('/apiSales',[SalesController::class, 'apiSales']);
+    // API 商品の在庫数を増やす処理
+    Route::post('/apiAdd',[SalesController::class, 'apiAdd']);
 });
 

@@ -6,7 +6,6 @@
     <title>新規登録フォーム</title>
     <link rel="stylesheet" href="/css/app.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="{{ asset('js/create.js') }}" defer></script>
 
 </head>
 
@@ -23,11 +22,11 @@
                     </label>
                     <input id="productName" name="productName" class="form-control" value="{{ old('productName') }}"
                         type="text">
-                    {{-- @if ($errors->has('productName'))
+                    @if ($errors->has('productName'))
                         <div class="text-danger">
                             {{ $errors->first('productName') }}
-                        </div> jsで書く
-                    @endif --}}
+                        </div>
+                    @endif
                 </div>
 
                 <div class="form-group">

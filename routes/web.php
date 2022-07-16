@@ -71,11 +71,3 @@ Route::post('/showDelete/delete/{id}', [CrudController::class, 'exeDelete'])->na
 Route::post('/search/{keyword}', [ShowListController::class, 'search'])->name('search');
 Route::post('/search2', [ShowListController::class, 'search2'])->name('search');
 
-// // 記事の検索をする
-// Route::post('/blog/search/{number}', 'BlogController@search')->name('number1');
-// Route::post('/blog/search/{number}', 'BlogController@search')->name('number2');
-// Route::post('/blog/search/{number}', 'BlogController@search')->name('number3');
-// Route::post('/blog/search/{number}', 'BlogController@search')->name('number4');
-
-
-// Route::get('api/test', 'TestAPIController@index');

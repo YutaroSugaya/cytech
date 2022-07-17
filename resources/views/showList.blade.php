@@ -32,11 +32,13 @@
             <div class="col-md-8 col-md-offset-2">
                 <h2>商品一覧</h2>
                 <p><input type="text" class="form-control mr-sm-2" v-model="keyword" placeholder="商品名または会社名を入力"></p>
-                <p><input type="text" class="form-control mr-sm-2" v-model="topPrice" placeholder="上弦"
-                        style="width:100px"></p>
-                ~<p><input type="text" class="form-control mr-sm-2" v-model="underPrice" placeholder="下弦"
-                        style="width:100px"></p>
                 <p><input type="button" value="検索" class="btn btn-primary" @click="postList(keyword)"></p>
+                <br>
+
+                <p><input type="text" class="form-control mr-sm-2" v-model="topPrice" placeholder="金額上限"
+                        style="width:100px"></p>
+                ~<p><input type="text" class="form-control mr-sm-2" v-model="underPrice" placeholder="金額下限"
+                        style="width:100px"></p>
                 <p><input type="button" value="検索" class="btn btn-primary"
                         @click="numberList(topPrice,underPrice)"></p>
                 <table class="table table-striped">
@@ -49,7 +51,7 @@
                         <th>@sortablelink('stock', '在庫数')</th>
                         <th>@sortablelink('company_id', 'メーカー名')</th>
                         <th>詳細画面</th>
-                        <th>データ削除</th>
+                        <th v-if='!screenFlg'>データ削除</th>
                     </tr>
 
                     @foreach ($product as $product)
@@ -62,22 +64,19 @@
                             <td>{{ $product->company_name }}</td>
                             <td><button type="button" class="btn btn-success"
                                     onclick="location.href='/showUpdate/{{ $product->id }}'">詳細表示</button></td>
-                            <td><button onclick="return confirm('本当に削除しますか？')"
-                                    class="btn btn-danger removeList">削除</button>
-                            </td>
                         </tr>
                     @endforeach
 
-                    <tr v-else v-for="item in productList">
+                    <tr v-else v-for="(item,index) in productList">
                         <td v-text="item.id"></td>
-                        <td v-text="item.image_path"></td>
+                        <td><img src="{{ Storage::url($product->image_path) }}" width="30px"></td>
                         <td v-text="item.productName"></td>
                         <td v-text="item.price"></td>
                         <td v-text="item.stock"></td>
                         <td v-text="item.company_name"></td>
-                        {{-- <td><img src="{{ Storage::url($product->image_path) }}" width="30px"></td> --}}
                         <td><button type="button" class="btn btn-success" @click="detail(item.id)">詳細表示</button></td>
-                        <td><button type="button" class="btn btn-danger" @click="deleteConfirm(index)">削除</button></td>
+                        <td><button type="button" class="btn btn-danger" @click="deleteConfirm(index)">削除2</button>
+                        </td>
                     </tr>
                 </table>
             </div>

@@ -102,31 +102,26 @@ class CrudController extends Controller {
         return redirect(route('showList'));
     }
 
-    /**
-     *　削除
-     *　@param int $id
-     * @return view
-     */
+    // /**
+    //  *　削除
+    //  *　@param int $id
+    //  * @return view
+    //  */
 
 
-    public function exeDelete($id)
-    {
-
-        $products = ProductModel::destroy($id);
-        if (empty($id)) {
-            \Session::flash('err_msg', 'データがありません。');
-            return view('showList');
-        }
-
-        try {
-            //データを削除
-            ProductModel::destroy($id);
-            \DB::commit();
-            // $products->save();
-        } catch (\Throwable $e) {
-            abort(500);
-        }
-        \Session::flash('err_msg', '削除しました。');
-        return view('showList');
-    }
+    // public function exeDelete($id)
+    // {
+    //     if (empty($id)) {
+    //         \Session::flash('err_msg', 'データがありません。');
+    //         return view('showList');
+    //     }
+    //     try {
+    //         //データを削除
+    //         ProductModel::destroy($id);
+    //     } catch (\Throwable $e) {
+    //         abort(500);
+    //     }
+    //     \Session::flash('err_msg', '削除しました。');
+    //     return redirect('showList');
+    // }
 }

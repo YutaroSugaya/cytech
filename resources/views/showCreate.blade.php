@@ -13,7 +13,7 @@
     <div class="table-responsive">
         <div class="col-md-8 col-md-offset-2">
             <h2>新規登録フォーム</h2>
-            <form method="POST" action="{{ route('exeStore') }}" onSubmit="return checkSubmit()">
+            <form method="POST" action="{{ route('exeStore') }}">
                 @csrf
 
                 <div class="form-group">

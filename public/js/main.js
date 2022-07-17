@@ -20,27 +20,6 @@ var app =
                 totalPrice: "",
                 screenFlg: false,
 
-                //バリデーション
-                companyName: [ //会社名
-                    {
-                        required: true
-                    },
-                ],
-                productName: [ //商品名
-                    {
-                        required: true
-                    },
-                ],
-                productPrice: [ //商品価格
-                    {
-                        required: true
-                    },
-                ],
-                productStock: [ //商品在庫数
-                    {
-                        required: true
-                    },
-                ],
             }
         },
 
@@ -51,7 +30,6 @@ var app =
                 .get("/home/showGetList", {
                 })
                 .then(response => {
-                    console.log(response);
                     vm.productList = response.data;
                     vm.screenFlg = true;
                 })
@@ -64,7 +42,6 @@ var app =
 
             sortId: function () {
                 this.productList.forEach(element => {
-                    console.log(element)
                     sort(element);
 
                 });
@@ -95,6 +72,9 @@ var app =
                 } else {
                     return false;
                 }
+            },
+            deleteCheck: function(id) {
+                console.log();
             },
 
             postList: function (keyword) {
@@ -132,7 +112,6 @@ var app =
                     axios.post('/search2', {
                         topPrice: this.topPrice,
                         underPrice: this.underPrice,
-
                     })
                         .then(response => {
                             vm.productList = response.data;

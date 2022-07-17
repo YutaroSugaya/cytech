@@ -30,7 +30,7 @@ class ShowListController extends Controller
     public function showList()
     {
         $product = $this->ProductModel->getModel()->getList();
-        return view('showList',['product' => $product]);
+        return view('showList', ['product' => $product]);
     }
 
     /**
@@ -61,9 +61,10 @@ class ShowListController extends Controller
                 'stock',
                 'comment',
                 'image_path',
-                'company_name'])
+                'company_name'
+            ])
                 ->from('products')
-                ->leftJoin('companies as com','company_id','com.id')
+                ->leftJoin('companies as com', 'company_id', 'com.id')
                 ->where('productName', 'LIKE', "%{$keyword}%")
                 ->orWhere('company_name', 'LIKE', "%{$keyword}%")
                 ->orWhere('stock', 'LIKE', "%{$keyword}%")
@@ -94,10 +95,11 @@ class ShowListController extends Controller
                 'stock',
                 'comment',
                 'image_path',
-                'company_name'])
+                'company_name'
+            ])
                 ->from('products')
-                ->leftJoin('companies as com','company_id','com.id')
-                ->whereBetween('price',[$underPrice, $topPrice])
+                ->leftJoin('companies as com', 'company_id', 'com.id')
+                ->whereBetween('price', [$underPrice, $topPrice])
                 ->get();
             return $response;
         } else {
@@ -131,5 +133,27 @@ class ShowListController extends Controller
         }
         $companies = $this->CompanieModel->companiesGet();
         return view('showUpdate', ['product' => $products, 'companies' => $companies]);
+    }
+
+
+    /**
+     *　削除
+     *　@param int $id
+     * @return view
+     */
+    public function exeDelete($id)
+    {
+        if (empty($id)) {
+            \Session::flash('err_msg', 'データがありません。');
+            return view('showList');
+        }
+        try {
+            //データを削除
+            ProductModel::destroy($id);
+        } catch (\Throwable $e) {
+            abort(500);
+        }
+        \Session::flash('err_msg', '削除しました。');
+        return redirect(route('showList'));
     }
 }

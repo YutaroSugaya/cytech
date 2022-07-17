@@ -28,7 +28,7 @@
 
             <div class="col-md-8 col-md-offset-2">
                 <h2 class="text-secondary">商品編集フォーム</h2>
-                <form method="POST" action="{{ route('exeUpdate') }}" onSubmit="return checkSubmit()">
+                <form method="POST" action="{{ route('exeUpdate') }}">
                     @csrf
                     <input type="hidden" name="id" value="{{ $product->id }}">
 
@@ -110,13 +110,13 @@
                         <br>
 
                     </div>
-                        <br>
-                        <input type="file" class="form-control-file" name='image_path' id="image_path">
-                        @if ($errors->has('image_path'))
-                            <div class="text-danger">
-                                {{ $errors->first('image_path') }}
-                            </div>
-                        @endif
+                    <br>
+                    <input type="file" class="form-control-file" name='image_path' id="image_path">
+                    @if ($errors->has('image_path'))
+                        <div class="text-danger">
+                            {{ $errors->first('image_path') }}
+                        </div>
+                    @endif
 
                     <div class="mt-5">
                         <button type="button" class="btn btn-secondary" onclick="location.href='/home'">
@@ -128,6 +128,12 @@
                         </button>
                     </div>
                 </form>
+                <form action="{{ route('delete', $product->id) }}" method="post" class="float-right">
+                    @csrf
+                    <td><button type="submit" value="削除" class="btn btn-danger"
+                            onclick='return confirm("削除しますか？");'>削除</button></td>
+                </form>
+
             </div>
         </div>
     </div>

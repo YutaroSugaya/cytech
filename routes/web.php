@@ -53,18 +53,14 @@ Route::post('/showUpdate/update', [CrudController::class, 'exeUpdate'])->name('e
 // //編集画面を表示
 // Route::get('/blog/edit/{id}', 'BlogController@showEdit')->name('edit');
 
-// //商品の更新
-
 // //削除
-Route::post('/blog/delete/{ID}', 'BlogController@exeDelete')->name('delete');
-Route::post('/showDelete/delete/{id}', [CrudController::class, 'exeDelete'])->name('exeDelete');
+// Route::post('/showDelete/{id}', [CrudController::class, 'exeDelete'])->name('exeDelete');
+// Route::post('/showDelete/{id}', [ShowListController::class, 'exeDelete'])->name('exeDelete');
+// Route::get('/showList/delete/{id}', [ShowListController::class, 'exeDelete'])->name('delete');
+Route::post('/delete/{id}', [ShowListController::class, 'exeDelete'])->name('delete');
 
 // Auth::routes();
 
-// Route::get('/home', 'HomeController@index')->name('home');
-
-// // 検索機能
-// //Route::get('/search', 'BlogController@getSearch')->name('search');
 
 
 // // 記事の検索をする

@@ -5,7 +5,7 @@ namespace App\Models;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Kyslik\ColumnSortable\Sortable;// 追加
+use Kyslik\ColumnSortable\Sortable; // 追加
 use DB;
 
 class ProductModel extends Model
@@ -36,12 +36,13 @@ class ProductModel extends Model
         'company_id'
     ];
 
-     /**
+    /**
      *　一覧画面のデータを取得する
      * @param
      * @return $obj
      * */
-    public function getModel() {
+    public function getModel()
+    {
         return new ProductModel();
     }
 
@@ -75,13 +76,14 @@ class ProductModel extends Model
     //     return $obj;
     // }
 
-     /**
+    /**
      *　一覧画面のデータを取得する eloquentバージョン
      * @param
      * @return $obj
      * */
 
-    public function getList() {
+    public function getList()
+    {
 
         $query = ProductModel::select([
             'products.id',
@@ -95,9 +97,8 @@ class ProductModel extends Model
         ])
             ->sortable()
             ->from('products')
-            ->leftJoin('companies as com','company_id','com.id')
+            ->leftJoin('companies as com', 'company_id', 'com.id')
             ->get();
         return $query;
     }
-
 }

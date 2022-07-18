@@ -13,7 +13,6 @@ class SalesController extends Controller
     /**
      * 在庫を減らす処理
      * @param Illuminate\Http\Request
-     *
      */
     public function apiSales(Request $request)
     {
@@ -34,7 +33,6 @@ class SalesController extends Controller
                 \DB::rollback();
                 abort(500);
             }
-
             // 変更後の在庫数を取得してログに出力
             $product = ProductModel::find($id);
             log::debug('product_id:' . $id . ' quantity:' . $orderQuantity . ' stock:' . $previousStock . ' -> ' . $product->stock);
@@ -42,10 +40,10 @@ class SalesController extends Controller
             log::debug('Out of stock');
         }
     }
+
     /**
      *  在庫数を増やす処理
      * @param Illuminate\Http\Request
-     *
      */
 
     public function apiAdd(Request $request)
@@ -67,7 +65,6 @@ class SalesController extends Controller
                 \DB::rollback();
                 abort(500);
             }
-
             // 変更後の在庫数を取得してログに出力
             $product = ProductModel::find($id);
             log::debug('product_id:' . $id . ' quantity:' . $orderQuantity . ' stock:' . $previousStock . ' -> ' . $product->stock);

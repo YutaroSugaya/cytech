@@ -33,7 +33,8 @@
                     <label for="price">
                         価格
                     </label>
-                    <input id="price" name="price" class="form-control" value="{{ old('price') }}" type="text">
+                    <input id="price" name="price" class="form-control" value="{{ old('price') }}"
+                        type="text">
                     @if ($errors->has('price'))
                         <div class="text-danger">
                             {{ $errors->first('price') }}
@@ -45,7 +46,8 @@
                     <label for="stock">
                         在庫数
                     </label>
-                    <input id="stock" name="stock" class="form-control" value="{{ old('stock') }}" type="text">
+                    <input id="stock" name="stock" class="form-control" value="{{ old('stock') }}"
+                        type="text">
                     @if ($errors->has('stock'))
                         <div class="text-danger">
                             {{ $errors->first('stock') }}
@@ -56,9 +58,10 @@
                 <div class="form-group">
 
                     <label>会社名</label>
-                    <select  id="id" name="company_name" >
+                    <select id="id" name="company_name">
                         @foreach ($companies as $company)
-                        <option value="{{ $company->id }}" @if(old('id') == $company->id) selected @endif>{{ $company->company_name }}</option>
+                            <option value="{{ $company->id }}" @if (old('id') == $company->id) selected @endif>
+                                {{ $company->company_name }}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('company'))

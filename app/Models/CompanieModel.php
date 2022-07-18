@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
-use Kyslik\ColumnSortable\Sortable;// 追加
+use Kyslik\ColumnSortable\Sortable; // 追加
 
 class CompanieModel extends Model
 {
@@ -19,7 +19,8 @@ class CompanieModel extends Model
         'company_name'
     ];
 
-    public function companiesGet() {
+    public function companiesGet()
+    {
 
         $query = DB::table($this->table);
         $query->select([
@@ -30,7 +31,7 @@ class CompanieModel extends Model
         ]);
 
         $obj = $query->from('companies')
-                     ->get();
+            ->get();
         return $obj;
     }
 }

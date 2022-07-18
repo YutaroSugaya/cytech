@@ -130,8 +130,8 @@
                 </form>
                 <form action="{{ route('delete', $product->id) }}" method="post" class="float-right">
                     @csrf
-                    <td><button type="submit" value="削除" class="btn btn-danger"
-                            onclick='return confirm("削除しますか？");'>削除</button></td>
+                    <button type="submit" value="削除" class="btn btn-danger"
+                            onclick='return confirm("削除しますか？");'>削除</button>
                 </form>
 
             </div>

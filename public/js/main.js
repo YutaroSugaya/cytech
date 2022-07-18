@@ -73,7 +73,7 @@ var app =
                     return false;
                 }
             },
-            deleteCheck: function(id) {
+            deleteCheck: function (id) {
                 console.log();
             },
 

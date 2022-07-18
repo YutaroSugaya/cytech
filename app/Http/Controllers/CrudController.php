@@ -9,14 +9,16 @@ use Illuminate\Http\Request;
 use DB;
 
 
-class CrudController extends Controller {
+class CrudController extends Controller
+{
     /**
      * Create a new controller instance.
      *
      * @return void
      */
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth');
         $this->CompanieModel = new CompanieModel();
         $this->ProductModel = new ProductModel();
@@ -25,7 +27,8 @@ class CrudController extends Controller {
 
 
     //新規登録画面の表示
-    public function showCreate() {
+    public function showCreate()
+    {
         return view('/showCreate');
     }
 
@@ -52,8 +55,9 @@ class CrudController extends Controller {
      * @return view
      */
     //BlogRequestを$requestという変数に入れる→$requestでデータを受け取れるようになる
-    public function exeStore(Request $request) {
-         //バリデーションチェック
+    public function exeStore(Request $request)
+    {
+        //バリデーションチェック
         $this->validate($request, [
             'productName' => 'bail|required|max:255',
             'price'       => 'bail|required|max:9999999999|integer',
@@ -74,7 +78,7 @@ class CrudController extends Controller {
     public function exeUpdate(Request $request)
     {
         //バリデーションチェック
-        $this->validate($request,[
+        $this->validate($request, [
             'productName' => 'bail|required|max:255',
             'price'       => 'bail|required|max:9999999999|integer',
             'stock'       => 'bail|required|max:9999999999|integer',

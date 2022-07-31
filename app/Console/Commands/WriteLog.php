@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Models\Pdfque;
+use DB;
 
 class WriteLog extends Command
 {
@@ -27,6 +29,18 @@ class WriteLog extends Command
      */
     public function handle()
     {
-        logger('test');// ここに自動化したい処理を書く。
+        DB::beginTransaction();
+        try {
+            Pdfque::insert([
+                'pdf' => 'a2',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            DB::commit();
+            logger('成功'); // ここに自動化したい処理を書く。
+        } catch (Exception $e) {
+            DB::rollback();
+            logger('失敗'); // ここに自動化したい処理を書く。
+        }
     }
 }

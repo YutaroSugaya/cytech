@@ -30,12 +30,9 @@ class WriteLog extends Command
     public function handle()
     {
         DB::beginTransaction();
+        $id = 1;
         try {
-            Pdfque::insert([
-                'pdf' => 'a2',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            DB::table('pdfQue')->delete($id);
             DB::commit();
             logger('成功'); // ここに自動化したい処理を書く。
         } catch (Exception $e) {

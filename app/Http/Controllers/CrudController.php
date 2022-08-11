@@ -84,6 +84,7 @@ class CrudController extends Controller
             'stock'       => 'bail|required|max:9999999999|integer',
             'comment'     => 'bail|required|max:1000'
         ]);
+        $this->CrudModel->exeUpdate($request);
 
         //短縮記法
         DB::transaction(function () use ($request) {

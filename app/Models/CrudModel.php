@@ -15,7 +15,7 @@ class CrudModel extends Model
 
 
     /**
-     *　新規画面のデータを取得する
+     *　新規画面のデータを登録する
      * @param $request
      * @return $model
      * */
@@ -36,6 +36,26 @@ class CrudModel extends Model
             \DB::commit();
             \Session::flash('err_msg', '商品を登録しました');
             return $model;
+        });
+    }
+
+    /**
+     *　登録データの更新する
+     * @param $request
+     * @return $model
+     * */
+
+    public function exeUpdate($request)
+    {
+        DB::transaction(function () use ($request) {
+            $products = ProductModel::find($request->id);
+            $products->company_id   = $request->company_name;
+            $products->productName  = $request->productName;
+            $products->price        = $request->price;
+            $products->stock        = $request->stock;
+            $products->comment      = $request->comment;
+            $products->image_path   = $request->image_path;
+            $products->save();
         });
     }
 }

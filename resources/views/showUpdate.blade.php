@@ -47,16 +47,9 @@
                     <br>
                     <div class="form-group">
                         <label>会社名</label>
-                        {{-- <select id="id" name="company_name">
-                            @foreach ($companies as $company)
-                                <option id="id" name="company_name" value="{{ $company->id }}"
-                                    @if ($company->id === $product->company_id) selected @endif>{{ $company->company_name }}
-                                </option>
-                            @endforeach
-                        </select> --}}
                         <select id="id" name="company_name">
                             @foreach ($companies as $company)
-                                <option value="{{ $company->id }}" @if (old('id') == $company->id) selected @endif>
+                            <option value="{{ $product->company_id }}" @if ($product->company_id == $company->id) selected @endif>
                                     {{ $company->company_name }}</option>
                             @endforeach
                         </select>

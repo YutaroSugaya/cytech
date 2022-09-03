@@ -12,7 +12,7 @@
 <div class="row" id="create">
     <div class="table-responsive">
         <div class="col-md-8 col-md-offset-2">
-            <h2>新規登録フォーム</h2>
+            <h2>ここが間違える</h2>
             <form method="POST" action="{{ route('exeStore') }}">
                 @csrf
 

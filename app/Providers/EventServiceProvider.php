@@ -27,7 +27,29 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        parent::boot();
+        //SAML2 のログインイベント
+        Event::listen('Aacotroneo\Saml2\Events\Saml2LoginEvent', function (Saml2LoginEvent $event) {
+            $messageId = $event->getSaml2Auth()->getLastMessageId();
+            $user = $event->getSaml2User();
+
+            // 属性からUserモデルを取得する
+            $userData = [
+                'id' => $user->getUserId(),
+                'attributes' => $user->getAttributes(),
+                'assertion' => $user->getRawSamlAssertion()
+            ];
+            $laravelUser = User::where('email',$userData['attributes']['emailAddress'])->first();
+
+            if ($laravelUser) {
+                Auth::login($laravelUser);
+                return;
+            } else {
+                abort(401, 'Authorization Required');
+                return;
+            }
+        });
+
     }
 
     /**

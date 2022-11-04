@@ -57,6 +57,12 @@
                                     {{ __('ログイン') }}
                                 </button>
 
+                                <div class="data-form">
+                                    <div class="button-area">
+                                        <a class="button size-l" href="/saml2/test/login">ログイン</a>
+                                    </div>
+                                </div>
+
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('パスワード再発行') }}

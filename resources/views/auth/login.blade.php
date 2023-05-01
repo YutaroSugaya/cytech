@@ -59,7 +59,7 @@
 
                                 <div class="data-form">
                                     <div class="button-area">
-                                        <a class="button size-l" href="/saml2/test/login">ログイン</a>
+                                        <a class="button size-l" href="/saml2/test/login">SSOログイン</a>
                                     </div>
                                 </div>
 

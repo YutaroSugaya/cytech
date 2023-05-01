@@ -68,6 +68,13 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="button" class="btn btn-secondary" onclick="location.href='/login'">
+                                    {{ __('戻る') }}
+                                </button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

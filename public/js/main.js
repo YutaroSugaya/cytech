@@ -7,7 +7,9 @@ var app =
         el: '#main',
         data: function () {
             return {
-
+                screenFlg: true, // 画面フラグ
+                sortKey: 'id', // 初期ソートキー
+                sortOrder: 1, // 初期ソート順
                 productList: [],
                 filterProductList: [],
                 searchList: [],
@@ -37,8 +39,28 @@ var app =
                     (vm.errored = true), (vm.error = err);
                 })
         },
+
+        computed: {
+            sortedProductList() {
+                return this.productList.slice().sort((a, b) => {
+                    return (a[this.sortKey] > b[this.sortKey] ? 1 : -1) * this.sortOrder;
+                });
+            }
+        },
+
         // //メソッド内容
         methods: {
+            sort(column) {
+                if (column === this.sortKey) {
+                    this.sortOrder *= -1;
+                } else {
+                    this.sortKey = column;
+                    this.sortOrder = 1;
+                }
+            },
+            getImageUrl(imagePath) {
+                return "{{ url('') }}/" + imagePath;
+            },
 
             sortId: function () {
                 this.productList.forEach(element => {

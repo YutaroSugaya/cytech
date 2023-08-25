@@ -43,45 +43,54 @@
                     <input type="button" value="検索" class="btn btn-primary"
                         @click="numberList(topPrice,underPrice)">
                 </form>
+                <div id="app">
                     <table class="table table-striped">
                         <br>
                         <tr>
-                            <th>@sortablelink('id', '商品ID')</th>
+                            <th @click="sort('id')">
+                                商品ID
+                                <span v-if="sortKey === 'id' && sortOrder === 1">&#9650;</span>
+                                <span v-if="sortKey === 'id' && sortOrder === -1">&#9660;</span>
+                            </th>
                             <th>商品画像</th>
-                            <th>@sortablelink('productName', '商品名')</th>
-                            <th>@sortablelink('price', '価格')</th>
-                            <th>@sortablelink('stock', '在庫数')</th>
-                            <th>@sortablelink('company_id', 'メーカー名')</th>
+                            <th @click="sort('productName')">
+                                商品名
+                                <span v-if="sortKey === 'productName' && sortOrder === 1">&#9650;</span>
+                                <span v-if="sortKey === 'productName' && sortOrder === -1">&#9660;</span>
+                            </th>
+                            <th @click="sort('price')">
+                                価格
+                                <span v-if="sortKey === 'price' && sortOrder === 1">&#9650;</span>
+                                <span v-if="sortKey === 'price' && sortOrder === -1">&#9660;</span>
+                            </th>
+                            <th @click="sort('stock')">
+                                在庫数
+                                <span v-if="sortKey === 'stock' && sortOrder === 1">&#9650;</span>
+                                <span v-if="sortKey === 'stock' && sortOrder === -1">&#9660;</span>
+                            </th>
+                            <th @click="sort('company_id')">
+                                メーカー名
+                                <span v-if="sortKey === 'company_id' && sortOrder === 1">&#9650;</span>
+                                <span v-if="sortKey === 'company_id' && sortOrder === -1">&#9660;</span>
+                            </th>
                             <th>詳細画面</th>
-                            <th v-if='!screenFlg'>データ削除</th>
+                            <th>データ削除</th>
                         </tr>
 
-                        @foreach ($product as $product)
-                            <tr v-if='screenFlg'>
-                                <td>{{ $product->id }}</td>
-                                <td><img src="{{ Storage::url($product->image_path) }}" width="30px"></td>
-                                <td>{{ $product->productName }}</td>
-                                <td>{{ $product->price }}</td>
-                                <td>{{ $product->stock }}</td>
-                                <td>{{ $product->company_name }}</td>
-                                <td><button type="button" class="btn btn-success"
-                                        onclick="location.href='/showUpdate/{{ $product->id }}'">詳細表示</button></td>
-                            </tr>
-                        @endforeach
-
-                        <tr v-else v-for="(item,index) in productList">
+                        <tr v-for="(item,index) in sortedProductList">
                             <td v-text="item.id"></td>
-                            <td><img src="{{ Storage::url($product->image_path) }}" width="30px"></td>
+                            <td><img src="{{ Storage::url('') }}" width="30px"></td>
                             <td v-text="item.productName"></td>
                             <td v-text="item.price"></td>
                             <td v-text="item.stock"></td>
                             <td v-text="item.company_name"></td>
                             <td><button type="button" class="btn btn-success" @click="detail(item.id)">詳細表示</button>
                             </td>
-                            <td><button type="button" class="btn btn-danger" @click="deleteConfirm(index)">削除2</button>
+                            <td><button type="button" class="btn btn-danger" @click="deleteConfirm(index)">削除</button>
                             </td>
                         </tr>
                     </table>
+                </div>
             </div>
         </div>
     </div>
